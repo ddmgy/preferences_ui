@@ -2,6 +2,8 @@
 
 Create preference screens similar to the android.preference library on Android platforms.
 
+Largely based on [flutter-settings-ui](https://github.com/yako-dev/flutter-settings-ui/), though with support for more kinds of preferences, and more geared toward just Android. This should work on iOS, but I cannot test it, and it will not look native.
+
 ## Installing:
 
 In pubspec.yaml:

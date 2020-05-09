@@ -1,6 +1,6 @@
 name: preferences_ui
 description: Create preference screens similar to the android.preference library on Android platforms.
-version: 0.1.0
+version: 0.1.1
 author: David Mougey
 homepage: https://github.com/ddmgy/preferences_ui
 
@@ -16,3 +16,4 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  uses-material-design: true
