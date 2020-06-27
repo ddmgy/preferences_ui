@@ -5,7 +5,12 @@ import 'preference_category.dart';
 class PreferenceScreen extends StatelessWidget {
   final List<PreferenceCategory> categories;
 
-  const PreferenceScreen({Key key, this.categories}) : super(key: key);
+  const PreferenceScreen({
+    Key key,
+    this.categories,
+  }) :
+    assert(categories != null),
+    super(key: key);
 
   @override
   Widget build(BuildContext context) {

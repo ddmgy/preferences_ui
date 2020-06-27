@@ -10,7 +10,9 @@ class PreferenceCategory extends StatelessWidget {
     Key key,
     this.title,
     this.preferences,
-  }) : super(key: key);
+  }) :
+    assert(preferences != null),
+    super(key: key);
 
   @override
   Widget build(BuildContext context) {

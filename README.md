@@ -29,12 +29,16 @@ PreferenceScreen(
     PreferenceCategory(
       title: "General",
       preferences: [
-        TextPreference(
-          title: "Theme",
-          summary: "Application theme",
-          icon: Icons.settings,
-          onTap: () {
-
+        ListPreference<Themes>(
+          title: "Application theme",
+          dialogTitle: "Choose a theme",
+          value: currentTheme,
+          entries: ["Light", "Dark"],
+          entryValues: [Themes.Light, Themes.Dark],
+          onChanged: (Themes newTheme) {
+            setState(() {
+              currentTheme = newTheme;
+            });
           },
         ),
         CheckBoxPreference(
@@ -43,8 +47,10 @@ PreferenceScreen(
           summaryOff: "Screenshots are available",
           value: checkBoxValue,
           onChanged: (bool value) {
-            // Do something with value
-          }
+            setState(() {
+              checkBoxValue = value;
+            });
+          },
         ),
       ],
     ),

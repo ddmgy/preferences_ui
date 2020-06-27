@@ -1,0 +1,24 @@
+name: preferences_ui_example
+version: 0.1.0
+homepage: https://github.com/ddmgy/preferences_ui
+author: David Mougey <imapiekindaguy@gmail.com>
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  preferences_ui:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+dependency_overrides:
+  preferences_ui:
+    path: ../
+
+flutter:
+  uses-material-design: true
