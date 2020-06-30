@@ -41,7 +41,6 @@ abstract class Preference extends StatelessWidget {
   /// i.e., a Checkbox, a Switch, an icon to show navigation to deeper depth.
   Widget _trailing(ThemeData theme) {
     return Container(
-      height: 24,
       alignment: Alignment.center,
       child: trailing,
     );
@@ -367,6 +366,51 @@ abstract class DialogPreference<T> extends Preference {
       ),
     );
   }
+}
+
+class DropDownPreference<T> extends Preference {
+  final T value;
+  final List<String> entries;
+  final List<T> entryValues;
+  final ValueChanged<T> onChanged;
+
+  DropDownPreference({
+    Key key,
+    @required String title,
+    String summary,
+    bool dense,
+    Color iconColor,
+    Widget leading,
+    bool enabled = true,
+    @required this.value,
+    @required this.entries,
+    @required this.entryValues,
+    this.onChanged,
+  }) :
+    assert(entries != null && entries.length > 0),
+    assert(entryValues != null && entryValues.length > 0),
+    assert(value != null && entryValues.contains(value)),
+    assert(entries.length == entryValues.length),
+    super(
+      key: key,
+      title: title,
+      summary: summary != null ? summary : entries[entryValues.indexOf(value)],
+      dense: dense,
+      iconColor: iconColor,
+      leading: leading,
+      trailing: DropdownButton<T>(
+        value: value,
+        onChanged: enabled ? onChanged : null,
+        isDense: dense,
+        items: List.generate(entries.length, (i) {
+          return DropdownMenuItem<T>(
+            value: entryValues[i],
+            child: Text(entries[i]),
+          );
+        }),
+      ),
+      enabled: enabled,
+    );
 }
 
 class EditTextPreference extends DialogPreference<String> {

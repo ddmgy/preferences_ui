@@ -88,6 +88,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 PreferenceCategory(
+                  title: "DropDownPreference",
+                  preferences: [
+                    DropDownPreference(
+                      title: "Application theme (alternate)",
+                      value: _currentTheme,
+                      entries: ["Light", "Dark"],
+                      entryValues: Themes.values,
+                      onChanged: (Themes theme) {
+                        setState(() {
+                          _currentTheme = theme;
+                        });
+                      },
+                      dense: _allPreferencesDense,
+                      enabled: _allPreferencesEnabled,
+                    ),
+                  ],
+                ),
+                PreferenceCategory(
                   title: "EditTextPreference",
                   preferences: [
                     EditTextPreference(

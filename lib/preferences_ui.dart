@@ -3,6 +3,7 @@ library preferences_ui;
 export 'src/preference.dart' show
   Preference,
   CheckBoxPreference,
+  DropDownPreference,
   EditTextPreference,
   ListPreference,
   MultiSelectListPreference,
