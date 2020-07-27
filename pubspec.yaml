@@ -1,6 +1,6 @@
 name: preferences_ui
 description: Create preference screens similar to the android.preference library on Android platforms.
-version: 0.2.1
+version: 0.2.2
 author: David Mougey
 homepage: https://github.com/ddmgy/preferences_ui
 

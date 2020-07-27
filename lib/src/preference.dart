@@ -532,6 +532,7 @@ class ListPreference<T> extends DialogPreference<T> {
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return ListView.builder(
+            shrinkWrap: true,
             itemCount: entries.length,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
@@ -626,6 +627,7 @@ class MultiSelectListPreference extends DialogPreference<List<bool>> {
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return ListView.builder(
+            shrinkWrap: true,
             itemCount: entries.length,
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
