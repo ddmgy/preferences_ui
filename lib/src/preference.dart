@@ -531,40 +531,42 @@ class ListPreference<T> extends DialogPreference<T> {
       contentPadding: const EdgeInsets.all(4),
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: entries.length,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  if (entryValues[index] != currentValue) {
-                    setState(() {
-                      currentValue = entryValues[index];
-                    });
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    children: [
-                      Radio<T>(
-                        groupValue: currentValue,
-                        value: entryValues[index],
-                        onChanged: (T newValue) {
-                          setState(() {
-                            currentValue = newValue;
-                          });
-                        },
-                      ),
-                      Expanded(
-                        child: Text(entries[index]),
-                        flex: 1,
-                      ),
-                    ],
-                  ),
+          final children = List<Widget>.generate(entries.length, (int index) {
+            return InkWell(
+              onTap: () {
+                if (entryValues[index] != currentValue) {
+                  setState(() {
+                    currentValue = entryValues[index];
+                  });
+                }
+              },
+              child: Container(
+                height: kMinInteractiveDimension,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Radio<T>(
+                      groupValue: currentValue,
+                      value: entryValues[index],
+                      onChanged: (T newValue) {
+                        setState(() {
+                          currentValue = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(entries[index]),
+                      flex: 1,
+                    ),
+                  ],
                 ),
-              );
-            },
+              ),
+            );
+          });
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
           );
         },
       ),
@@ -626,37 +628,39 @@ class MultiSelectListPreference extends DialogPreference<List<bool>> {
       contentPadding: const EdgeInsets.all(4),
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: entries.length,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  setState(() {
-                    currentValues[index] = !currentValues[index];
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    children: [
-                      Checkbox(
-                        value: currentValues[index],
-                        onChanged: (bool newValue) {
-                          setState(() {
-                            currentValues[index] = newValue;
-                          });
-                        },
-                      ),
-                      Expanded(
-                        child: Text(entries[index]),
-                        flex: 1,
-                      ),
-                    ],
-                  ),
+          final children = List<Widget>.generate(entries.length, (int index) {
+            return InkWell(
+              onTap: () {
+                setState(() {
+                  currentValues[index] = !currentValues[index];
+                });
+              },
+              child: Container(
+                height: kMinInteractiveDimension,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: currentValues[index],
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          currentValues[index] = newValue;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(entries[index]),
+                      flex: 1,
+                    ),
+                  ],
                 ),
-              );
-            },
+              ),
+            );
+          });
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
           );
         },
       ),
@@ -729,7 +733,6 @@ class SeekBarPreference extends Preference {
             ),
             flex: 1,
           ),
-//          if (showValue) Text(value.toStringAsPrecision(4)),
           if (showValue) Text(formatText != null ? formatText(value) : value.toStringAsPrecision(4)),
         ],
       ),

@@ -1,7 +1,9 @@
 name: preferences_ui_example
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/ddmgy/preferences_ui
 author: David Mougey <imapiekindaguy@gmail.com>
+
+publish_to: 'none'
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
