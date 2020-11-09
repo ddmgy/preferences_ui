@@ -1,12 +1,12 @@
 name: preferences_ui_example
-version: 0.1.1
+version: 0.2.0
 homepage: https://github.com/ddmgy/preferences_ui
 author: David Mougey <imapiekindaguy@gmail.com>
 
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.7.0 <2.12.0"
 
 dependencies:
   flutter:

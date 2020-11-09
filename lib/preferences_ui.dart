@@ -1,14 +1,19 @@
 library preferences_ui;
 
-export 'src/preference.dart' show
+export 'src/base.dart' show
+  BasePreference,
   Preference,
-  CheckBoxPreference,
-  DropDownPreference,
-  EditTextPreference,
-  ListPreference,
-  MultiSelectListPreference,
-  SeekBarPreference,
-  SwitchPreference,
-  TextPreference;
-export 'src/preference_category.dart' show PreferenceCategory;
-export 'src/preference_screen.dart' show PreferenceScreen;
+  PreferenceWithChildren,
+  PreferenceDivider,
+  PreferenceGroup;
+export 'src/checkbox.dart' show CheckBoxPreference;
+export 'src/dialog.dart' show DialogPreference;
+export 'src/dropdown.dart' show DropDownPreference;
+export 'src/edittext.dart' show EditTextPreference;
+export 'src/list.dart' show ListPreference;
+export 'src/multiselectlist.dart' show MultiSelectListPreference;
+export 'src/page.dart' show PreferencePage;
+export 'src/screen.dart' show PreferenceScreen;
+export 'src/seekbar.dart' show SeekBarPreference;
+export 'src/switch.dart' show SwitchPreference;
+export 'src/twostate.dart' show TwoStatePreference;

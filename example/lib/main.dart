@@ -41,188 +41,183 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Theme(
       data: _currentTheme == Themes.Light ? ThemeData.light() : ThemeData.dark(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("preferences_ui example"),
-          actions: [
-            IconButton(
-              icon: Icon(_allPreferencesEnabled ? Icons.check : Icons.clear),
-              tooltip: "Change enabled property on all preferences",
-              onPressed: () {
-                setState(() {
-                  _allPreferencesEnabled = !_allPreferencesEnabled;
-                });
-              },
-            ),
-            IconButton(
-              icon: Icon(_allPreferencesDense ? Icons.fullscreen_exit : Icons.fullscreen),
-              tooltip: "Change dense property on all preferences",
-              onPressed: () {
-                setState(() {
-                  _allPreferencesDense = !_allPreferencesDense;
-                });
-              },
-            ),
-          ],
-        ),
-        body: Center(
-          child: Scrollbar(
-            child: PreferenceScreen(
-              categories: [
-                PreferenceCategory(
-                  title: "CheckBoxPreference",
-                  preferences: [
-                    CheckBoxPreference(
-                      title: "CheckBox",
-                      value: _checkBoxValue,
-                      summaryOn: "This is the summary string when value is true",
-                      summaryOff: "This is the summary string when value is false",
-                      leading: Icon(Icons.code),
-                      onChanged: (value) {
-                        setState(() {
-                          _checkBoxValue = value;
-                        });
-                      },
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "DropDownPreference",
-                  preferences: [
-                    DropDownPreference(
-                      title: "Application theme (alternate)",
-                      value: _currentTheme,
-                      entries: ["Light", "Dark"],
-                      entryValues: Themes.values,
-                      onChanged: (Themes theme) {
-                        setState(() {
-                          _currentTheme = theme;
-                        });
-                      },
-                      dense: _allPreferencesDense,
-                      enabled: _allPreferencesEnabled,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "EditTextPreference",
-                  preferences: [
-                    EditTextPreference(
-                      title: "Edit this string",
-                      value: _editTextValue,
-                      summary: "$_editTextValue",
-                      dialogTitle: "This is a title",
-                      onChanged: (value) {
-                        setState(() {
-                          _editTextValue = value;
-                        });
-                      },
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "ListPreference",
-                  preferences: [
-                    ListPreference(
-                      title: "Application theme",
-                      dialogTitle: "Choose a theme",
-                      value: _currentTheme,
-                      entries: ["Light", "Dark"],
-                      entryValues: Themes.values,
-                      onChanged: (Themes theme) {
-                        setState(() {
-                          _currentTheme = theme;
-                        });
-                      },
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "MultiSelectListPreference",
-                  preferences: [
-                    MultiSelectListPreference(
-                      title: "Days of the week",
-                      dialogTitle: "Select the days of the week",
-                      entries: _multiSelectEntries,
-                      entryValues: _multiSelectValues,
-                      onChanged: (List<bool> values) {
-                        setState(() {
-                          _multiSelectValues = values;
-                        });
-                      },
-                      formatSummary: (List<bool> values) {
-                        List<String> days = [];
-                        for (int i = 0; i < values.length; i++) {
-                          if (values[i]) {
-                            days.add(_multiSelectEntries[i]);
-                          }
-                        }
-                        return days.join(", ");
-                      },
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "SeekBarPreference",
-                  preferences: [
-                    SeekBarPreference(
-                      title: "SeekBar",
-                      value: _seekBarValue,
-                      showValue: true,
-                      divisions: 10,
-                      formatText: (double value) => "$value%",
-                      onChanged: (value) {
-                        setState(() {
-                          _seekBarValue = value;
-                        });
-                      },
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "SwitchPreference",
-                  preferences: [
-                    SwitchPreference(
-                      title: "Switch",
-                      summary: "This is a switch",
-                      value: _switchValue,
-                      onChanged: (value) {
-                        setState(() {
-                          _switchValue = value;
-                        });
-                      },
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-                PreferenceCategory(
-                  title: "TextPreference",
-                  preferences: [
-                    TextPreference(
-                      title: "This is basically just a button",
-                      summary: "Click me to print something",
-                      onTap: () => print("this is being printed by the TextPreference"),
-                      trailing: Icon(Icons.arrow_forward),
-                      enabled: _allPreferencesEnabled,
-                      dense: _allPreferencesDense,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+      child: PreferenceScreen(
+        title: "Settings",
+        actions: [
+          IconButton(
+            icon: Icon(_allPreferencesEnabled ? Icons.check : Icons.clear),
+            tooltip: "Change enabled property on all preferences",
+            onPressed: () {
+              setState(() {
+                _allPreferencesEnabled = !_allPreferencesEnabled;
+              });
+            },
           ),
-        ),
+          IconButton(
+            icon: Icon(_allPreferencesDense ? Icons.fullscreen_exit : Icons.fullscreen),
+            tooltip: "Change dense property on all preferences",
+            onPressed: () {
+              setState(() {
+                _allPreferencesDense = !_allPreferencesDense;
+              });
+            },
+          ),
+        ],
+        children: [
+          PreferenceGroup(
+            title: "Two-state preferences",
+            children: [
+              CheckBoxPreference(
+                title: "CheckBox",
+                value: _checkBoxValue,
+                summaryOn: "This is the summary string when value is true",
+                summaryOff: "This is the summary string when value is false",
+                onChanged: (value) {
+                  setState(() {
+                    _checkBoxValue = value;
+                  });
+                },
+                enabled: _allPreferencesEnabled,
+                dense: _allPreferencesDense,
+              ),
+              SwitchPreference(
+                title: "Switch",
+                summaryOn: "The switch is on",
+                summaryOff: "The switch is off",
+                value: _switchValue,
+                onChanged: (value) {
+                  setState(() {
+                    _switchValue = value;
+                  });
+                },
+                enabled: _allPreferencesEnabled,
+                dense: _allPreferencesDense,
+              ),
+            ],
+          ),
+          PreferenceGroup(
+            title: "DropDownPreference",
+            children: [
+              DropDownPreference(
+                title: "Application theme (drop down)",
+                value: _currentTheme,
+                entries: ["Light", "Dark"],
+                entryValues: Themes.values,
+                onChanged: (theme) {
+                  setState(() {
+                    _currentTheme = theme;
+                  });
+                },
+                dense: _allPreferencesDense,
+                enabled: _allPreferencesEnabled,
+              ),
+            ],
+          ),
+          PreferenceGroup(
+            title: "EditTextPreference",
+            children: [
+              EditTextPreference(
+                title: "Edit this string",
+                value: _editTextValue,
+                summary: _editTextValue,
+                dialogTitle: "This is a title",
+                onChanged: (value) {
+                  setState(() {
+                    _editTextValue = value;
+                  });
+                },
+                enabled: _allPreferencesEnabled,
+                dense: _allPreferencesDense,
+              ),
+            ],
+          ),
+          PreferenceGroup(
+            title: "ListPreference",
+            children: [
+              ListPreference(
+                title: "Application theme",
+                dialogTitle: "Choose a theme",
+                value: _currentTheme,
+                entries: ["Light", "Dark"],
+                entryValues: Themes.values,
+                onChanged: (theme) {
+                  setState(() {
+                    _currentTheme = theme;
+                  });
+                },
+                enabled: _allPreferencesEnabled,
+                dense: _allPreferencesDense,
+              ),
+            ],
+          ),
+          PreferenceGroup(
+            title: "MultiSelectListPreference",
+            children: [
+              MultiSelectListPreference(
+                title: "Days of the week",
+                dialogTitle: "Select the days of the week",
+                entries: _multiSelectEntries,
+                entryValues: _multiSelectValues,
+                onChanged: (values) {
+                  setState(() {
+                    _multiSelectValues = values;
+                  });
+                },
+                formatSummary: (values) {
+                  if (!values.any((b) => !b)) {
+                    return "All week";
+                  }
+                  List<String> days = [];
+                  for (int i = 0; i < values.length; i++) {
+                    if (values[i]) {
+                      days.add(_multiSelectEntries[i]);
+                    }
+                  }
+                  if (days.isEmpty) {
+                    return "None";
+                  }
+                  return days.join(", ");
+                },
+                enabled: _allPreferencesEnabled,
+                dense: _allPreferencesDense,
+              ),
+            ],
+          ),
+          PreferenceGroup(
+            title: "SeekBarPreference",
+            children: [
+              SeekBarPreference(
+                title: "SeekBar",
+                value: _seekBarValue,
+                showValue: true,
+                divisions: 10,
+                formatText: (double value) => "$value%",
+                onChanged: (value) {
+                  setState(() {
+                    _seekBarValue = value;
+                  });
+                },
+                enabled: _allPreferencesEnabled,
+                dense: _allPreferencesDense,
+              ),
+            ],
+          ),
+          PreferencePage(
+            title: "About",
+            children: [
+              Preference(
+                title: "Version",
+                summary: "0.2.0",
+              ),
+              Preference(
+                title: "Changelog",
+              ),
+              Preference(
+                title: "Licenses",
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

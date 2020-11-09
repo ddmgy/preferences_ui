@@ -2,7 +2,7 @@
 
 Create preference screens similar to the android.preference library on Android platforms.
 
-Largely based on [flutter-settings-ui](https://github.com/yako-dev/flutter-settings-ui/), though with support for more kinds of preferences, and more geared toward just Android. This should work on iOS, but I cannot test it, and it will not look native.
+Initially based on [flutter-settings-ui](https://github.com/yako-dev/flutter-settings-ui/), but with support for more preferences and more geared toward Android. Should work on all platforms, but I can only test on Android, Linux, and Windows.
 
 ## Installing:
 
@@ -25,10 +25,11 @@ import 'package:preferences_ui/preferences_ui.dart';
 
 ```dart
 PreferenceScreen(
-  categories: [
-    PreferenceCategory(
+  title: "Settings",
+  children: [
+    PreferenceGroup(
       title: "General",
-      preferences: [
+      children: [
         ListPreference<Themes>(
           title: "Application theme",
           dialogTitle: "Choose a theme",
