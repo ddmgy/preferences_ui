@@ -233,7 +233,7 @@ class _ChangelogScreenState extends State<_ChangelogScreen> {
               );
             }
 
-            return Expanded(
+            return Scrollbar(
               child: Markdown(
                 data: snapshot.data,
               ),
