@@ -52,6 +52,13 @@ class Preference extends BasePreference {
     );
   }
 
+  Widget getBottomWidget(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: bottom,
+    );
+  }
+
   String getSummary() => summary;
 
   Color getIconColor(BuildContext context) {
@@ -166,6 +173,34 @@ class Preference extends BasePreference {
     }
 
     final overlay = getOverlayWidget(context);
+    Widget bottomWidget = getBottomWidget(context);
+
+    if (bottom != null) {
+      subtitleStyle = getSubtitleTextStyle(context);
+      bottomWidget = AnimatedDefaultTextStyle(
+        style: subtitleStyle,
+        duration: kThemeChangeDuration,
+        child: bottomWidget,
+      );
+    }
+
+    final centerColumn = <Widget>[
+      titleText,
+    ];
+
+    if (subtitleText != null) {
+      centerColumn.add(Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: subtitleText,
+      ));
+    }
+
+    if (bottomWidget != null) {
+      centerColumn.add(Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: bottomWidget,
+      ));
+    }
 
     return Stack(
       children: [
@@ -183,14 +218,7 @@ class Preference extends BasePreference {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      titleText,
-                      if (subtitleText != null) Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: subtitleText,
-                      ),
-                      if (bottom != null) bottom,
-                    ],
+                    children: centerColumn,
                   ),
                   flex: 1,
                 ),

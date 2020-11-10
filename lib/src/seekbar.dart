@@ -38,7 +38,10 @@ class SeekBarPreference extends Preference {
     leading: leading,
     trailing: trailing,
     enabled: enabled,
-    bottom: Row(
+  );
+
+  @override
+  Widget getBottomWidget(BuildContext context) => Row(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -64,8 +67,7 @@ class SeekBarPreference extends Preference {
           formatText != null ? formatText(value) : value.toStringAsPrecision(4),
         ),
       ],
-    ),
-  );
+    );
 
   @override
   Widget getOverlayWidget(BuildContext context) => null;
