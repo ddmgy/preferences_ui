@@ -143,6 +143,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           PreferenceGroup(
+            title: "Advanced",
             children: [
               PreferencePage(
                 title: "About",
@@ -167,6 +168,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
                 enabled: allEnabled,
+                dense: allDense,
+              ),
+              Preference(
+                title: "Reset user preferences",
+                leading: Icon(Icons.code),
+                onLongPress: () {
+                  provider.clear();
+                },
                 dense: allDense,
               ),
             ],

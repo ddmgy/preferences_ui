@@ -37,7 +37,7 @@ class PreferencesProvider extends ChangeNotifier {
     throw Exception("unreachable");
   }
 
-  bool _allEnabled = false;
+  bool _allEnabled = true;
   bool get allEnabled => _allEnabled;
   set allEnabled(bool newAllEnabled) {
     if (newAllEnabled == _allEnabled || newAllEnabled == null) {

@@ -31,7 +31,7 @@ class PreferencesHelper {
 
   Future<bool> getAllEnabled() async {
     final prefs = await preferences;
-    return prefs.getBool(PreferencesKeys.allEnabled) ?? false;
+    return prefs.getBool(PreferencesKeys.allEnabled) ?? true;
   }
 
   Future<void> setAllEnabled(bool allEnabled) async {
