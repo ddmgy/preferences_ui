@@ -1,16 +1,17 @@
-# example
+# preferences_ui example
 
-A new Flutter project.
+## Running
 
-## Getting Started
+From this directory, run
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run -d <device_name>
+```
 
-A few resources to get you started if this is your first Flutter project:
+where device_name is as specified in
+```bash
+flutter devices
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+(i.e., windows, linux, android-emulator).

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:preferences_ui/preferences_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -153,16 +155,30 @@ class HomeScreen extends StatelessWidget {
                   Preference(
                     title: "Version",
                     summary: "0.2.0",
+                    onTap: () {},
                     enabled: allEnabled,
                     dense: allDense,
                   ),
                   Preference(
                     title: "Changelog",
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute<void>(
+                        builder: (_) => _ChangelogScreen(),
+                      ));
+                    },
                     enabled: allEnabled,
                     dense: allDense,
                   ),
                   Preference(
                     title: "Licenses",
+                    onTap: () {
+                      showLicensePage(
+                        context: context,
+                        applicationName: "preferences_ui example",
+                        applicationVersion: "0.2.0",
+                        applicationLegalese: "© 2020 David Mougey",
+                      );
+                    },
                     enabled: allEnabled,
                     dense: allDense,
                   ),
@@ -186,178 +202,45 @@ class HomeScreen extends StatelessWidget {
   );
 }
 
-// class _HomeScreenState extends State<HomeScreen> {
-//   bool _allPreferencesDense = false;
-//   bool _allPreferencesEnabled = true;
-//   bool _checkBoxValue = false;
-//   Themes _currentTheme = Themes.Light;
-//   String _editTextValue = "";
-//   List<String> _multiSelectEntries = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-//   List<bool> _multiSelectValues = List.filled(7, false);
-//   double _seekBarValue = 50.0;
-//   bool _switchValue = false;
+class _ChangelogScreen extends StatefulWidget {
+  Future<String> get data async =>
+    rootBundle.loadString("CHANGELOG.md");
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Theme(
-//       data: _currentTheme == Themes.Light ? ThemeData.light() : ThemeData.dark(),
-//       child: PreferenceScreen(
-//         children: [
-//           PreferenceGroup(
-//             title: "Two-state preferences",
-//             children: [
-//               CheckBoxPreference(
-//                 title: "CheckBox",
-//                 value: _checkBoxValue,
-//                 summaryOn: "This is the summary string when value is true",
-//                 summaryOff: "This is the summary string when value is false",
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _checkBoxValue = value;
-//                   });
-//                 },
-//                 enabled: _allPreferencesEnabled,
-//                 dense: _allPreferencesDense,
-//               ),
-//               SwitchPreference(
-//                 title: "Switch",
-//                 summaryOn: "The switch is on",
-//                 summaryOff: "The switch is off",
-//                 value: _switchValue,
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _switchValue = value;
-//                   });
-//                 },
-//                 enabled: _allPreferencesEnabled,
-//                 dense: _allPreferencesDense,
-//               ),
-//             ],
-//           ),
-//           PreferenceGroup(
-//             title: "DropDownPreference",
-//             children: [
-//               DropDownPreference(
-//                 title: "Application theme (drop down)",
-//                 value: _currentTheme,
-//                 entries: ["Light", "Dark"],
-//                 entryValues: Themes.values,
-//                 onChanged: (theme) {
-//                   setState(() {
-//                     _currentTheme = theme;
-//                   });
-//                 },
-//                 dense: _allPreferencesDense,
-//                 enabled: _allPreferencesEnabled,
-//               ),
-//             ],
-//           ),
-//           PreferenceGroup(
-//             title: "EditTextPreference",
-//             children: [
-//               EditTextPreference(
-//                 title: "Edit this string",
-//                 value: _editTextValue,
-//                 summary: _editTextValue,
-//                 dialogTitle: "This is a title",
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _editTextValue = value;
-//                   });
-//                 },
-//                 enabled: _allPreferencesEnabled,
-//                 dense: _allPreferencesDense,
-//               ),
-//             ],
-//           ),
-//           PreferenceGroup(
-//             title: "ListPreference",
-//             children: [
-//               ListPreference(
-//                 title: "Application theme",
-//                 dialogTitle: "Choose a theme",
-//                 value: _currentTheme,
-//                 entries: ["Light", "Dark"],
-//                 entryValues: Themes.values,
-//                 onChanged: (theme) {
-//                   setState(() {
-//                     _currentTheme = theme;
-//                   });
-//                 },
-//                 enabled: _allPreferencesEnabled,
-//                 dense: _allPreferencesDense,
-//               ),
-//             ],
-//           ),
-//           PreferenceGroup(
-//             title: "MultiSelectListPreference",
-//             children: [
-//               MultiSelectListPreference(
-//                 title: "Days of the week",
-//                 dialogTitle: "Select the days of the week",
-//                 entries: _multiSelectEntries,
-//                 entryValues: _multiSelectValues,
-//                 onChanged: (values) {
-//                   setState(() {
-//                     _multiSelectValues = values;
-//                   });
-//                 },
-//                 formatSummary: (values) {
-//                   if (!values.any((b) => !b)) {
-//                     return "All week";
-//                   }
-//                   List<String> days = [];
-//                   for (int i = 0; i < values.length; i++) {
-//                     if (values[i]) {
-//                       days.add(_multiSelectEntries[i]);
-//                     }
-//                   }
-//                   if (days.isEmpty) {
-//                     return "None";
-//                   }
-//                   return days.join(", ");
-//                 },
-//                 enabled: _allPreferencesEnabled,
-//                 dense: _allPreferencesDense,
-//               ),
-//             ],
-//           ),
-//           PreferenceGroup(
-//             title: "SeekBarPreference",
-//             children: [
-//               SeekBarPreference(
-//                 title: "SeekBar",
-//                 value: _seekBarValue,
-//                 showValue: true,
-//                 divisions: 10,
-//                 formatText: (double value) => "$value%",
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _seekBarValue = value;
-//                   });
-//                 },
-//                 enabled: _allPreferencesEnabled,
-//                 dense: _allPreferencesDense,
-//               ),
-//             ],
-//           ),
-//           PreferencePage(
-//             title: "About",
-//             children: [
-//               Preference(
-//                 title: "Version",
-//                 summary: "0.2.0",
-//               ),
-//               Preference(
-//                 title: "Changelog",
-//               ),
-//               Preference(
-//                 title: "Licenses",
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  @override
+  State<StatefulWidget> createState() => _ChangelogScreenState();
+}
+
+class _ChangelogScreenState extends State<_ChangelogScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Changelog"),
+      ),
+      body: Center(
+        child: FutureBuilder<String>(
+          future: widget.data,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error),
+              );
+            }
+
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return Expanded(
+              child: Markdown(
+                data: snapshot.data,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
