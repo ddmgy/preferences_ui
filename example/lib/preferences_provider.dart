@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:preferences_ui/preferences_ui.dart';
+
 import 'preferences_helper.dart';
 import 'theme_type.dart';
+import 'transition_type.dart';
 
 ThemeData _lightTheme = ThemeData(
   brightness: Brightness.light,
@@ -92,6 +95,65 @@ class PreferencesProvider extends ChangeNotifier {
     _prefs.setSelectedDays(_selectedDays);
   }
 
+  TransitionType _transitionType = TransitionType.Default;
+  TransitionType get transitionType => _transitionType;
+  set transitionType(TransitionType newValue) {
+    if (newValue == _transitionType) {
+      return;
+    }
+    _transitionType = newValue;
+    notifyListeners();
+    _prefs.setTransitionType(_transitionType);
+
+    RouteTransitionsBuilder transitionsBuilder;
+    switch (_transitionType) {
+      case TransitionType.Default:
+        transitionsBuilder = null;
+        break;
+      case TransitionType.Fade:
+        transitionsBuilder = fadeTransitionsBuilder;
+        break;
+      case TransitionType.Rotation:
+        transitionsBuilder = rotationTransitionsBuilder;
+        break;
+      case TransitionType.Scale:
+        transitionsBuilder = scaleTransitionsBuilder;
+        break;
+      case TransitionType.Slide:
+        transitionsBuilder = slideTransitionsBuilder;
+        break;
+    }
+    preferencePageTransitionsBuilder = transitionsBuilder;
+  }
+
+  int _transitionDuration = 0;
+  int get transitionDuration => _transitionDuration;
+  set transitionDuration(int newValue) {
+    if (newValue == null || newValue == _transitionDuration) {
+      return;
+    }
+    _transitionDuration = newValue;
+    notifyListeners();
+    _prefs.setTransitionDuration(_transitionDuration);
+    transitionsSettings = transitionsSettings.copyWith(
+      duration: Duration(milliseconds: _transitionDuration),
+    );
+  }
+
+  int _transitionCurve = 0;
+  int get transitionCurve => _transitionCurve;
+  set transitionCurve(int newValue) {
+    if (newValue == null || newValue == _transitionCurve) {
+      return;
+    }
+    _transitionCurve = newValue;
+    notifyListeners();
+    _prefs.setTransitionCurve(_transitionCurve);
+    transitionsSettings = transitionsSettings.copyWith(
+      curve: PreferencesValues.curves[_transitionCurve],
+    );
+  }
+
   PreferencesProvider() {
     _initPreferences();
   }
@@ -103,7 +165,16 @@ class PreferencesProvider extends ChangeNotifier {
     _volume = await _prefs.getVolume();
     _remindersEnabled = await _prefs.getRemindersEnabled();
     _selectedDays = await _prefs.getSelectedDays();
-    notifyListeners();
+    _transitionDuration = await _prefs.getTransitionDuration();
+    _transitionCurve = await _prefs.getTransitionCurve();
+    // Need to set these directly, so that the changes will be reflected globally.
+    transitionsSettings = TransitionsSettings(
+      curve: PreferencesValues.curves[_transitionCurve],
+      duration: Duration(milliseconds: _transitionDuration),
+    );
+    // Setting this will call notifyListeners
+    transitionType = await _prefs.getTransitionType();
+    // notifyListeners();
   }
 
   void clear() async {

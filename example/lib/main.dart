@@ -9,7 +9,7 @@ import 'days_of_the_week.dart';
 import 'preferences_helper.dart';
 import 'preferences_provider.dart';
 import 'theme_type.dart';
-import 'utils.dart';
+import 'transition_type.dart';
 
 void main() {
   runApp(
@@ -140,6 +140,49 @@ class HomeScreen extends StatelessWidget {
                   return days.join(", ");
                 },
                 enabled: provider.remindersEnabled,
+                dense: allDense,
+              ),
+            ],
+          ),
+          PreferenceGroup(
+            title: "Transitions",
+            children: [
+              ListPreference(
+                title: "Type",
+                dialogTitle: "Choose a transition type",
+                value: provider.transitionType,
+                entries: PreferencesEntries.transitionTypes,
+                entryValues: PreferencesValues.transitionTypes,
+                onChanged: (TransitionType transitionType) {
+                  provider.transitionType = transitionType;
+                },
+                enabled: allEnabled,
+                dense: allDense,
+              ),
+              SeekBarPreference(
+                title: "Duration",
+                value: provider.transitionDuration.toDouble(),
+                min: 0,
+                max: 500,
+                divisions: 10,
+                showValue: true,
+                formatText: (double value) => "${value.toInt().toString()}ms",
+                onChanged: (double newValue) {
+                  provider.transitionDuration = newValue.toInt();
+                },
+                enabled: allEnabled,
+                dense: allDense,
+              ),
+              ListPreference(
+                title: "Curve",
+                dialogTitle: "Choose a curve",
+                value: PreferencesValues.curves[provider.transitionCurve],
+                entries: PreferencesEntries.curves,
+                entryValues: PreferencesValues.curves,
+                onChanged: (Curve newValue) {
+                  provider.transitionCurve = PreferencesValues.curves.indexOf(newValue) ?? 0;
+                },
+                enabled: allEnabled,
                 dense: allDense,
               ),
             ],
