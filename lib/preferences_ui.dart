@@ -16,4 +16,12 @@ export 'src/page.dart' show PreferencePage;
 export 'src/screen.dart' show PreferenceScreen;
 export 'src/seekbar.dart' show SeekBarPreference;
 export 'src/switch.dart' show SwitchPreference;
+export 'src/transition.dart' show
+  defaultTransitionsBuilder,
+  fadeTransitionsBuilder,
+  rotationTransitionsBuilder,
+  scaleTransitionsBuilder,
+  slideTransitionsBuilder,
+  preferencePageTransitionsBuilder,
+  transitionsSettings;
 export 'src/twostate.dart' show TwoStatePreference;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'base.dart';
 import 'screen.dart';
+import 'transition.dart';
 
 class PreferencePage extends Preference {
   final List<BasePreference> children;
@@ -35,17 +36,16 @@ class PreferencePage extends Preference {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute<void>(
-            builder: (BuildContext context) {
-              return PreferenceScreen(
-                title: title,
-                children: children,
-                actions: actions,
-              );
-            },
-          ));
-        },
+        onTap: () => Navigator.of(context).push(PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => PreferenceScreen(
+            title: title,
+            children: children,
+            actions: actions,
+          ),
+          transitionsBuilder: preferencePageTransitionsBuilder,
+          transitionDuration: transitionsSettings.duration,
+          reverseTransitionDuration: transitionsSettings.duration,
+        )),
       ),
     );
   }
