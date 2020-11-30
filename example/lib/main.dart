@@ -197,7 +197,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Preference(
                     title: "Version",
-                    summary: "0.2.0",
+                    summary: "0.3.0",
                     onTap: () {},
                     enabled: allEnabled,
                     dense: allDense,
@@ -218,7 +218,7 @@ class HomeScreen extends StatelessWidget {
                       showLicensePage(
                         context: context,
                         applicationName: "preferences_ui example",
-                        applicationVersion: "0.2.0",
+                        applicationVersion: "0.3.0",
                         applicationLegalese: "© 2020 David Mougey",
                       );
                     },
