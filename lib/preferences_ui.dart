@@ -23,5 +23,6 @@ export 'src/transition.dart' show
   scaleTransitionsBuilder,
   slideTransitionsBuilder,
   preferencePageTransitionsBuilder,
-  transitionsSettings;
+  transitionsSettings,
+  TransitionsSettings;
 export 'src/twostate.dart' show TwoStatePreference;
