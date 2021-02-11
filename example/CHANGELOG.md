@@ -6,6 +6,10 @@ and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [0.3.1] - 2021-02-11
+### Changed
+- Update SDK dependency.
+
 ## [0.3.0] - 2020-11-20
 ### Added
  - Add preferences to configure transitions. Can configure type, duration, and curve of transition.
