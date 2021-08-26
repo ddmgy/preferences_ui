@@ -4,21 +4,21 @@ import 'dialog.dart';
 
 class EditTextPreference extends DialogPreference<String> {
   final String value;
-  final bool autoFocus;
-  final bool obscureText;
+  final bool? autoFocus;
+  final bool? obscureText;
 
   EditTextPreference({
-    @required this.value,
+    required this.value,
     this.autoFocus = false,
     this.obscureText = false,
-    @required String dialogTitle,
-    @required ValueChanged<String> onChanged,
-    @required String title,
-    String summary,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget trailing,
+    required String dialogTitle,
+    required ValueChanged<String> onChanged,
+    required String title,
+    String? summary,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? trailing,
     bool enabled = true,
   }) :
     super(
@@ -37,7 +37,7 @@ class EditTextPreference extends DialogPreference<String> {
   Widget makeDialog(BuildContext context) {
     final controller = TextEditingController(text: value);
     return AlertDialog(
-      title: dialogTitle != null ? Text(dialogTitle) : null,
+      title: Text(dialogTitle),
       contentPadding: const EdgeInsets.all(4),
       scrollable: true,
       content: StatefulBuilder(
@@ -55,11 +55,11 @@ class EditTextPreference extends DialogPreference<String> {
         ),
       ),
       actions: [
-        FlatButton(
+        TextButton(
           child: const Text("Cancel"),
           onPressed: () => Navigator.of(context).pop(null),
         ),
-        FlatButton(
+        TextButton(
           child: const Text("OK"),
           onPressed: () => Navigator.of(context).pop(controller.text),
         ),

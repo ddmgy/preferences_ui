@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension BuildContextExtensions on BuildContext {
-  Color iconColor() {
+  Color? iconColor() {
     final theme = Theme.of(this);
 
     switch (theme.brightness) {
@@ -12,7 +12,7 @@ extension BuildContextExtensions on BuildContext {
     }
   }
 
-  Color textColor() {
+  Color? textColor() {
     final theme = Theme.of(this);
 
     switch (theme.brightness) {
@@ -25,7 +25,7 @@ extension BuildContextExtensions on BuildContext {
     }
   }
 
-  Color subtitleTextColor() {
+  Color? subtitleTextColor() {
     final theme = Theme.of(this);
 
     switch (theme.brightness) {
@@ -39,7 +39,7 @@ extension BuildContextExtensions on BuildContext {
   }
 
   TextStyle titleTextStyle({double fontSize: 16}) {
-    final style = Theme.of(this).textTheme.subtitle1;
+    final style = Theme.of(this).textTheme.subtitle1!;
     final color = textColor();
     return style.copyWith(
       color: color,
@@ -48,7 +48,7 @@ extension BuildContextExtensions on BuildContext {
   }
 
   TextStyle subtitleTextStyle({double fontSize: 12}) {
-    final style = Theme.of(this).textTheme.bodyText1;
+    final style = Theme.of(this).textTheme.bodyText1!;
     final color = subtitleTextColor();
     return style.copyWith(
       color: color,

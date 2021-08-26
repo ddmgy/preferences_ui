@@ -4,15 +4,15 @@ import 'twostate.dart';
 
 class SwitchPreference extends TwoStatePreference {
   SwitchPreference({
-    @required bool value,
-    @required ValueChanged<bool> onChanged,
-    String summaryOff,
-    String summaryOn,
-    @required String title,
-    String summary,
-    bool dense,
-    Color iconColor,
-    Widget leading,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+    String? summaryOff,
+    String? summaryOn,
+    required String title,
+    String? summary,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
     bool enabled = true,
   }) : super(
     value: value,

@@ -10,13 +10,7 @@ import 'utils.dart';
 class PreferencesHelper {
   static final instance = PreferencesHelper._();
 
-  static SharedPreferences _preferences;
-  Future<SharedPreferences> get preferences async {
-    if (_preferences == null) {
-      _preferences = await SharedPreferences.getInstance();
-    }
-    return _preferences;
-  }
+  Future<SharedPreferences> get preferences async => await SharedPreferences.getInstance();
 
   PreferencesHelper._();
 

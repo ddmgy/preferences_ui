@@ -8,21 +8,21 @@ class ListPreference<T> extends DialogPreference<T> {
   final List<T> entryValues;
 
   ListPreference({
-    @required this.value,
-    @required this.entries,
-    @required this.entryValues,
-    @required String dialogTitle,
-    @required ValueChanged<T> onChanged,
-    @required String title,
-    String summary,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget trailing,
+    required this.value,
+    required this.entries,
+    required this.entryValues,
+    required String dialogTitle,
+    required ValueChanged<T> onChanged,
+    required String title,
+    String? summary,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? trailing,
     bool enabled = true,
   }) :
-    assert(entries != null && entries.isNotEmpty),
-    assert(entryValues != null && entryValues.isNotEmpty),
+    assert(entries.isNotEmpty),
+    assert(entryValues.isNotEmpty),
     assert(value != null && entryValues.contains(value)),
     assert(entries.length == entryValues.length),
     super(
@@ -41,7 +41,7 @@ class ListPreference<T> extends DialogPreference<T> {
   Widget makeDialog(BuildContext context) {
     T currentValue = value;
     return AlertDialog(
-      title: dialogTitle != null ? Text(dialogTitle) : null,
+      title: Text(dialogTitle),
       contentPadding: const EdgeInsets.all(4),
       scrollable: true,
       content: StatefulBuilder(
@@ -63,7 +63,10 @@ class ListPreference<T> extends DialogPreference<T> {
                     Radio<T>(
                       groupValue: currentValue,
                       value: entryValues[index],
-                      onChanged: (T newValue) {
+                      onChanged: (T? newValue) {
+                        if (newValue == null) {
+                          return;
+                        }
                         setState(() {
                           currentValue = newValue;
                         });
@@ -86,11 +89,11 @@ class ListPreference<T> extends DialogPreference<T> {
         },
       ),
       actions: [
-        FlatButton(
+        TextButton(
           child: const Text("Cancel"),
           onPressed: () => Navigator.of(context).pop(null),
         ),
-        FlatButton(
+        TextButton(
           child: const Text("OK"),
           onPressed: () => Navigator.of(context).pop(currentValue),
         ),

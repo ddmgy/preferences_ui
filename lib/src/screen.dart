@@ -8,8 +8,8 @@ class PreferenceScreen extends StatelessWidget {
   final List<Widget> actions;
 
   PreferenceScreen({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.children = const [],
     this.actions = const [],
   }) : super(key: key);

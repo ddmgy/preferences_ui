@@ -7,23 +7,23 @@ class DropDownPreference<T> extends Preference {
   final ValueChanged<T> onChanged;
   final List<String> entries;
   final List<T> entryValues;
-  Rect _lastPress;
+  late Rect _lastPress;
 
   DropDownPreference({
-    @required this.value,
-    @required this.onChanged,
-    @required this.entries,
-    @required this.entryValues,
-    @required String title,
-    String summary,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget trailing,
+    required this.value,
+    required this.onChanged,
+    required this.entries,
+    required this.entryValues,
+    required String title,
+    String? summary,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? trailing,
     bool enabled = true,
   }) :
-    assert(entries != null && entries.isNotEmpty),
-    assert(entryValues != null && entryValues.isNotEmpty),
+    assert(entries.isNotEmpty),
+    assert(entryValues.isNotEmpty),
     assert(value != null && entryValues.contains(value)),
     assert(entries.length == entryValues.length),
     super(
@@ -52,7 +52,7 @@ class DropDownPreference<T> extends Preference {
         onTap: !enabled
           ? null
           : () async {
-            T newValue = await showMenu<T>(
+            T? newValue = await showMenu<T>(
               context: context,
               position: RelativeRect.fromSize(
                 _lastPress,

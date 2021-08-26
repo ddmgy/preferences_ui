@@ -7,14 +7,14 @@ abstract class DialogPreference<T> extends Preference {
   final ValueChanged<T> onChanged;
 
   DialogPreference({
-    @required this.dialogTitle,
-    @required this.onChanged,
-    @required String title,
-    String summary,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget trailing,
+    required this.dialogTitle,
+    required this.onChanged,
+    required String title,
+    String? summary,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? trailing,
     bool enabled = true,
   }) :
     super(
@@ -37,7 +37,7 @@ abstract class DialogPreference<T> extends Preference {
         onTap: !enabled
           ? null
           : () async {
-            T result = await showDialog<T>(
+            T? result = await showDialog<T>(
               context: context,
               builder: (BuildContext context) => makeDialog(context),
             );

@@ -11,15 +11,14 @@ class PreferencePage extends Preference {
   PreferencePage({
     this.children = const [],
     this.actions = const [],
-    String title,
-    String summary,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget bottom,
+    required String title,
+    String? summary,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? bottom,
     bool enabled = true,
   }) :
-    assert(children != null),
     super(
       title: title,
       summary: summary,

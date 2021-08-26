@@ -22,7 +22,7 @@ class PreferencesProvider extends ChangeNotifier {
   ThemeType _themeType = ThemeType.Light;
   ThemeType get themeType => _themeType;
   set themeType(ThemeType newThemeType) {
-    if (newThemeType == _themeType || newThemeType == null) {
+    if (newThemeType == _themeType) {
       return;
     }
     _themeType = newThemeType;
@@ -37,13 +37,12 @@ class PreferencesProvider extends ChangeNotifier {
       case ThemeType.Dark:
         return _darkTheme;
     }
-    throw Exception("unreachable");
   }
 
   bool _allEnabled = true;
   bool get allEnabled => _allEnabled;
   set allEnabled(bool newAllEnabled) {
-    if (newAllEnabled == _allEnabled || newAllEnabled == null) {
+    if (newAllEnabled == _allEnabled) {
       return;
     }
     _allEnabled = newAllEnabled;
@@ -54,7 +53,7 @@ class PreferencesProvider extends ChangeNotifier {
   bool _allDense = false;
   bool get allDense => _allDense;
   set allDense(bool newAllDense) {
-    if (newAllDense == _allDense || newAllDense == null) {
+    if (newAllDense == _allDense) {
       return;
     }
     _allDense = newAllDense;
@@ -65,7 +64,7 @@ class PreferencesProvider extends ChangeNotifier {
   double _volume = 50.0;
   double get volume => _volume;
   set volume(double newVolume) {
-    if (newVolume == _volume || newVolume == null) {
+    if (newVolume == _volume) {
       return;
     }
     _volume = newVolume;
@@ -76,7 +75,7 @@ class PreferencesProvider extends ChangeNotifier {
   bool _remindersEnabled = true;
   bool get remindersEnabled => _remindersEnabled;
   set remindersEnabled(bool newRemindersEnabled) {
-    if (newRemindersEnabled == _remindersEnabled || newRemindersEnabled == null) {
+    if (newRemindersEnabled == _remindersEnabled) {
       return;
     }
     _remindersEnabled = newRemindersEnabled;
@@ -87,7 +86,7 @@ class PreferencesProvider extends ChangeNotifier {
   List<bool> _selectedDays = List<bool>.filled(7, false);
   List<bool> get selectedDays => _selectedDays;
   set selectedDays(List<bool> newSelectedDays) {
-    if (newSelectedDays == _selectedDays || newSelectedDays == null) {
+    if (newSelectedDays == _selectedDays) {
       return;
     }
     _selectedDays = newSelectedDays;
@@ -105,7 +104,7 @@ class PreferencesProvider extends ChangeNotifier {
     notifyListeners();
     _prefs.setTransitionType(_transitionType);
 
-    RouteTransitionsBuilder transitionsBuilder;
+    RouteTransitionsBuilder? transitionsBuilder;
     switch (_transitionType) {
       case TransitionType.Default:
         transitionsBuilder = null;
@@ -129,7 +128,7 @@ class PreferencesProvider extends ChangeNotifier {
   int _transitionDuration = 0;
   int get transitionDuration => _transitionDuration;
   set transitionDuration(int newValue) {
-    if (newValue == null || newValue == _transitionDuration) {
+    if (newValue == _transitionDuration) {
       return;
     }
     _transitionDuration = newValue;
@@ -143,7 +142,7 @@ class PreferencesProvider extends ChangeNotifier {
   int _transitionCurve = 0;
   int get transitionCurve => _transitionCurve;
   set transitionCurve(int newValue) {
-    if (newValue == null || newValue == _transitionCurve) {
+    if (newValue == _transitionCurve) {
       return;
     }
     _transitionCurve = newValue;

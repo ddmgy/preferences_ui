@@ -7,29 +7,29 @@ typedef SummaryFormatter = String Function(List<bool> values);
 class MultiSelectListPreference extends DialogPreference<List<bool>> {
   final List<String> entries;
   final List<bool> entryValues;
-  final SummaryFormatter formatSummary;
+  final SummaryFormatter? formatSummary;
 
   MultiSelectListPreference({
-    @required this.entries,
-    @required this.entryValues,
-    @required this.formatSummary,
-    @required String dialogTitle,
-    @required ValueChanged<List<bool>> onChanged,
-    @required String title,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget trailing,
+    required this.entries,
+    required this.entryValues,
+    this.formatSummary,
+    required String dialogTitle,
+    required ValueChanged<List<bool>> onChanged,
+    required String title,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? trailing,
     bool enabled = true,
   }) :
-    assert(entries != null && entries.isNotEmpty),
-    assert(entryValues != null && entryValues.isNotEmpty),
+    assert(entries.isNotEmpty),
+    assert(entryValues.isNotEmpty),
     assert(entries.length == entryValues.length),
     super(
       dialogTitle: dialogTitle,
       onChanged: onChanged,
       title: title,
-      summary: formatSummary != null ? formatSummary(entryValues) : null,
+      summary: formatSummary?.call(entryValues),
       dense: dense,
       iconColor: iconColor,
       leading: leading,
@@ -41,7 +41,7 @@ class MultiSelectListPreference extends DialogPreference<List<bool>> {
   Widget makeDialog(BuildContext context) {
     List<bool> currentValues = List<bool>.from(entryValues);
     return AlertDialog(
-      title: dialogTitle != null ? Text(dialogTitle) : null,
+      title: Text(dialogTitle),
       contentPadding: const EdgeInsets.all(4),
       scrollable: true,
       content: StatefulBuilder(
@@ -60,7 +60,10 @@ class MultiSelectListPreference extends DialogPreference<List<bool>> {
                   children: [
                     Checkbox(
                       value: currentValues[index],
-                      onChanged: (bool newValue) {
+                      onChanged: (bool? newValue) {
+                        if (newValue == null) {
+                          return;
+                        }
                         setState(() {
                           currentValues[index] = newValue;
                         });
@@ -83,11 +86,11 @@ class MultiSelectListPreference extends DialogPreference<List<bool>> {
         },
       ),
       actions: [
-        FlatButton(
+        TextButton(
           child: const Text("Cancel"),
           onPressed: () => Navigator.of(context).pop(null),
         ),
-        FlatButton(
+        TextButton(
           child: const Text("OK"),
           onPressed: () => Navigator.of(context).pop(currentValues),
         ),

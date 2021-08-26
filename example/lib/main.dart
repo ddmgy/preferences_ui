@@ -180,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                 entries: PreferencesEntries.curves,
                 entryValues: PreferencesValues.curves,
                 onChanged: (Curve newValue) {
-                  provider.transitionCurve = PreferencesValues.curves.indexOf(newValue) ?? 0;
+                  provider.transitionCurve = PreferencesValues.curves.indexOf(newValue);
                 },
                 enabled: allEnabled,
                 dense: allDense,
@@ -266,7 +266,7 @@ class _ChangelogScreenState extends State<_ChangelogScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(
-                child: Text(snapshot.error),
+                child: Text(snapshot.error as String),
               );
             }
 
@@ -278,7 +278,7 @@ class _ChangelogScreenState extends State<_ChangelogScreen> {
 
             return Scrollbar(
               child: Markdown(
-                data: snapshot.data,
+                data: snapshot.data!,
               ),
             );
           },

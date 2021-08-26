@@ -8,28 +8,28 @@ class SeekBarPreference extends Preference {
   final double value;
   final double min;
   final double max;
-  final ValueChanged<double> onChanged;
-  final ValueChanged<double> onChangeStart;
-  final ValueChanged<double> onChangeEnd;
-  final bool showValue;
-  final int divisions;
-  final TextFormatter formatText;
+  final ValueChanged<double>? onChanged;
+  final ValueChanged<double>? onChangeStart;
+  final ValueChanged<double>? onChangeEnd;
+  final bool? showValue;
+  final int? divisions;
+  final TextFormatter? formatText;
 
   SeekBarPreference({
-    @required this.value,
+    required this.value,
     this.min = 0,
     this.max = 100,
-    @required this.onChanged,
+    required this.onChanged,
     this.onChangeStart,
     this.onChangeEnd,
     this.showValue = false,
     this.divisions,
     this.formatText,
-    @required String title,
-    bool dense,
-    Color iconColor,
-    Widget leading,
-    Widget trailing,
+    required String title,
+    bool? dense,
+    Color? iconColor,
+    Widget? leading,
+    Widget? trailing,
     bool enabled = true,
   }) : super(
     title: title,
@@ -63,12 +63,12 @@ class SeekBarPreference extends Preference {
           ),
           flex: 1,
         ),
-        if (showValue) Text(
-          formatText != null ? formatText(value) : value.toStringAsPrecision(4),
+        if (showValue ?? false) Text(
+            (formatText?.call(value)) ?? value.toStringAsPrecision(4),
         ),
       ],
     );
 
   @override
-  Widget getOverlayWidget(BuildContext context) => null;
+  Widget? getOverlayWidget(BuildContext context) => null;
 }

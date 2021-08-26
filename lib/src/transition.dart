@@ -5,13 +5,11 @@ class TransitionsSettings {
   final Duration duration;
 
   const TransitionsSettings({
-    this.curve,
-    this.duration,
-  }) :
-    assert(curve != null),
-    assert(duration != null);
+    required this.curve,
+    required this.duration,
+  });
 
-  TransitionsSettings copyWith({Curve curve, Duration duration}) => TransitionsSettings(
+  TransitionsSettings copyWith({Curve? curve, Duration? duration}) => TransitionsSettings(
     curve: curve ?? this.curve,
     duration: duration ?? this.duration,
   );
@@ -22,7 +20,7 @@ const _defaultTransitionsSettings = TransitionsSettings(
   duration: Duration(milliseconds: 300),
 );
 
-TransitionsSettings _transitionsSettings;
+TransitionsSettings? _transitionsSettings;
 
 TransitionsSettings get transitionsSettings =>
   _transitionsSettings ?? _defaultTransitionsSettings;
@@ -30,12 +28,12 @@ TransitionsSettings get transitionsSettings =>
 set transitionsSettings(TransitionsSettings settings) =>
   _transitionsSettings = settings;
 
-RouteTransitionsBuilder _preferencePageTransitionsBuilder;
+RouteTransitionsBuilder? _preferencePageTransitionsBuilder;
 
 RouteTransitionsBuilder get preferencePageTransitionsBuilder =>
   _preferencePageTransitionsBuilder ?? defaultTransitionsBuilder;
 
-set preferencePageTransitionsBuilder(RouteTransitionsBuilder transitionsBuilder) =>
+set preferencePageTransitionsBuilder(RouteTransitionsBuilder? transitionsBuilder) =>
   _preferencePageTransitionsBuilder = transitionsBuilder;
 
 Widget defaultTransitionsBuilder(
@@ -88,7 +86,7 @@ Widget slideTransitionsBuilder(
   Animation<double> secondaryAnimation,
   Widget child) {
   final _positionAnimation = Tween<Offset>(
-    begin: const Offset(-1.0, 0.0),
+    begin: const Offset(1.0, 0.0),
     end: Offset.zero,
   ).animate(CurvedAnimation(
     parent: animation,

@@ -14,17 +14,17 @@ abstract class BasePreference {
 
 class Preference extends BasePreference {
   final String title;
-  final String summary;
-  final bool dense;
-  final Color iconColor;
-  final Widget leading;
-  final Widget trailing;
-  final Widget bottom;
-  final VoidCallback onTap;
-  final VoidCallback onLongPress;
+  final String? summary;
+  final bool? dense;
+  final Color? iconColor;
+  final Widget? leading;
+  final Widget? trailing;
+  final Widget? bottom;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   Preference({
-    this.title,
+    required this.title,
     this.summary,
     this.dense,
     this.iconColor,
@@ -36,7 +36,7 @@ class Preference extends BasePreference {
     bool enabled = true,
   }) : super(enabled: enabled);
 
-  Widget getLeadingWidget(BuildContext context) {
+  Widget? getLeadingWidget(BuildContext context) {
     return Container(
       width: 24,
       height: 24,
@@ -45,35 +45,35 @@ class Preference extends BasePreference {
     );
   }
 
-  Widget getTrailingWidget(BuildContext context) {
+  Widget? getTrailingWidget(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: trailing,
     );
   }
 
-  Widget getBottomWidget(BuildContext context) {
+  Widget? getBottomWidget(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: bottom,
     );
   }
 
-  String getSummary() => summary;
+  String? getSummary() => summary;
 
-  Color getIconColor(BuildContext context) {
+  Color? getIconColor(BuildContext context) {
     if (!enabled) {
       return Theme.of(context).disabledColor;
     }
 
     if (iconColor != null) {
-      return iconColor;
+      return iconColor!;
     }
 
     return context.iconColor();
   }
 
-  Color getTextColor(BuildContext context) {
+  Color? getTextColor(BuildContext context) {
     if (!enabled) {
       return Theme.of(context).disabledColor;
     }
@@ -81,7 +81,7 @@ class Preference extends BasePreference {
     return context.textColor();
   }
 
-  Color getSubtitleTextColor(BuildContext context) {
+  Color? getSubtitleTextColor(BuildContext context) {
     if (!enabled) {
       return Theme.of(context).disabledColor;
     }
@@ -107,7 +107,7 @@ class Preference extends BasePreference {
       : style.copyWith(color: color);
   }
 
-  Widget getOverlayWidget(BuildContext context) {
+  Widget? getOverlayWidget(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -121,27 +121,27 @@ class Preference extends BasePreference {
   Widget toWidget(BuildContext context) {
     final theme = Theme.of(context);
 
-    IconThemeData iconThemeData;
+    IconThemeData? iconThemeData;
     if (leading != null || trailing != null) {
       iconThemeData = IconThemeData(
         color: getIconColor(context),
       );
     }
 
-    Widget leadingWidget = getLeadingWidget(context);
-    Widget trailingWidget = getTrailingWidget(context);
+    Widget? leadingWidget = getLeadingWidget(context);
+    Widget? trailingWidget = getTrailingWidget(context);
 
-    if (leading is Icon) {
+    if (leading != null && leading is Icon) {
       leadingWidget = IconTheme.merge(
-        data: iconThemeData,
-        child: leadingWidget,
+        data: iconThemeData!,
+        child: leadingWidget!,
       );
     }
 
-    if (trailing is Icon) {
+    if (trailing != null && trailing is Icon) {
       trailingWidget = IconTheme.merge(
-        data: iconThemeData,
-        child: trailingWidget,
+        data: iconThemeData!,
+        child: trailingWidget!,
       );
     }
 
@@ -156,7 +156,7 @@ class Preference extends BasePreference {
       ),
     );
 
-    Widget subtitleText;
+    Widget? subtitleText;
     TextStyle subtitleStyle;
     final subtitle = getSummary();
     if (subtitle != null) {
@@ -173,9 +173,9 @@ class Preference extends BasePreference {
     }
 
     final overlay = getOverlayWidget(context);
-    Widget bottomWidget = getBottomWidget(context);
+    Widget? bottomWidget = getBottomWidget(context);
 
-    if (bottom != null) {
+    if (bottomWidget != null) {
       subtitleStyle = getSubtitleTextStyle(context);
       bottomWidget = AnimatedDefaultTextStyle(
         style: subtitleStyle,
@@ -245,7 +245,7 @@ abstract class PreferenceWithChildren extends BasePreference {
     this.children = const [],
     bool enabled = true,
   }) : super(enabled: enabled) {
-    if (!(enabled ?? false)) {
+    if (!enabled) {
       children.forEach((child) => child.enabled = enabled);
     }
   }
@@ -267,7 +267,7 @@ class PreferenceDivider extends BasePreference {
 
   @override
   Widget toWidget(BuildContext context) {
-    Color dividerColor = Theme.of(context)?.brightness == Brightness.light
+    Color? dividerColor = Theme.of(context).brightness == Brightness.light
       ? null
       : Colors.transparent;
 
@@ -285,8 +285,8 @@ class PreferenceGroup extends PreferenceWithChildren {
   final String title;
 
   PreferenceGroup({
-    this.title,
-    List<BasePreference> children,
+    required this.title,
+    required List<BasePreference> children,
     bool enabled = true,
   }) :
     super(
@@ -297,18 +297,16 @@ class PreferenceGroup extends PreferenceWithChildren {
   @override
   Widget toWidget(BuildContext context) {
     final theme = Theme.of(context);
-    Widget titleWidget = title == null
-      ? Container()
-      : Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: theme.accentColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        );
+    Widget titleWidget = Padding(
+      padding: const EdgeInsets.all(8),
+      child: Text(
+        title,
+        style: TextStyle(
+          color: theme.colorScheme.secondary,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
     final body = ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
