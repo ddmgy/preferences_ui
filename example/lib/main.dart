@@ -85,6 +85,26 @@ class HomeScreen extends StatelessWidget {
                 enabled: allEnabled,
                 dense: allDense,
               ),
+              PreferencePage(
+                title: 'Application theme (page)',
+                summary: provider.themeType.name,
+                children: [
+                  ListPreference(
+                    title: 'Application theme',
+                    dialogTitle: 'Choose a theme',
+                    value: provider.themeType,
+                    entries: PreferencesEntries.themes,
+                    entryValues: PreferencesValues.themes,
+                    onChanged: (ThemeType themeType) {
+                      provider.themeType = themeType;
+                    },
+                    enabled: allEnabled,
+                    dense: allDense,
+                  ),
+                ],
+                enabled: allEnabled,
+                dense: allDense,
+              ),
               SeekBarPreference(
                 title: "Volume",
                 value: provider.volume,

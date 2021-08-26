@@ -36,10 +36,13 @@ class PreferencePage extends Preference {
       color: Colors.transparent,
       child: InkWell(
         onTap: () => Navigator.of(context).push(PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => PreferenceScreen(
-            title: title,
-            children: children,
-            actions: actions,
+          pageBuilder: (context, animation, secondaryAnimation) => Theme(
+            data: Theme.of(context),
+            child: PreferenceScreen(
+              title: title,
+              children: children,
+              actions: actions,
+            ),
           ),
           transitionsBuilder: preferencePageTransitionsBuilder,
           transitionDuration: transitionsSettings.duration,
