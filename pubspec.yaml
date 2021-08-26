@@ -5,7 +5,7 @@ author: David Mougey
 homepage: https://github.com/ddmgy/preferences_ui
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:

@@ -6,14 +6,14 @@ author: David Mougey <imapiekindaguy@gmail.com>
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^4.3.0
-  flutter_markdown: ^0.5.0
-  shared_preferences: ">=0.5.0 <2.0.0"
+  provider: "^6.0.0"
+  flutter_markdown: "^0.6.0"
+  shared_preferences: "^2.0.0"
   preferences_ui:
     path: ../
 
